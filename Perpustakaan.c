@@ -120,33 +120,70 @@ void menuLoginDosen() {
 void loginDosen() {
 	system("CLS");
 	header();
-	int key = 0;
-
+	int user = 0;
+	int pass = 0;
+	char temp[] = "";
 	FILE* dataDosen;
-	dataDosen = fopen("data dosen.txt", "a+");
 
 	printf("\n=================================================================================================\n");
 	printf("\t\t\tHarap Login Terlebih Dahulu!\n");
 	printf("=================================================================================================\n");
 
-	loginDosen:
+	loginDosenUsername:
 	printf("\tNama\t\t: ");
 	scanf("%s", username);
+	loginDosenPassword:
 	printf("\tPassword\t: ");
 	scanf("%s", password);
 
-	while (fscanf(dataDosen, "%s\n%d\n%s\n", tambah.nama, &tambah.noWhatsApp, tambah.password) != EOF) {
-		if ((strcmp(username, tambah.nama) == 0) && (strcmp(password, tambah.password) == 0)) {
-			key = 1;
+	if (pass == 0 && user == 1){
+		if (strcmp(password, temp) == 0){
 			menuDosen();
-			break;
+		} else {
+			goto loginDosenPassword;
 		}
 	}
-	if (key != 1) {
-		printf("\tUsername atau Password Anda Salah!\n");
-		key = 1;
-		goto loginDosen;
+
+	dataDosen = fopen("data dosen.txt", "a+");
+	while (fscanf(dataDosen, "%s\n%d\n%s\n", tambah.nama, &tambah.noWhatsApp, tambah.password) != EOF) {
+		user = 0;
+		pass = 0;
+		if (strcmp(username, tambah.nama) == 0){
+			user = 1;
+			if (strcmp(password, tambah.password) == 0){
+				pass = 1;
+				menuDosen();
+				break;
+			} else {
+				pass = 0;
+				strcat(temp, tambah.password);
+				break;
+			}
+		} else {
+			if (strcmp(password, tambah.password) == 0){
+				pass = 2;
+				if (user == 1 && pass == 2){
+					menuDosen();
+				}
+				fclose(dataDosen);
+				printf("Username atau Pasword Anda Salah!\n");
+				goto loginDosenUsername;
+				break;
+			} else {
+				pass = 0;
+				break;
+			}
+			
+		}
 	}
+	if (pass == 0 && user == 1){
+		printf("Password Anda Salah!\n");
+		goto loginDosenPassword;
+	} else if (user == 0 && pass == 0){
+		printf("Username dan Pasword Anda Salah!\n");
+		goto loginDosenUsername;
+	}
+
 	fclose(dataDosen);
 }
 void signupDosen() {
@@ -249,41 +286,69 @@ void menuLoginMahasiswa() {
 void loginMahasiswa() {
 	system("CLS");
 	header();
-	int key = 0;
-
+	int user = 0;
+	int pass = 0;
+	char temp[] = "";
 	FILE* dataMahasiswa;
-	dataMahasiswa = fopen("data mahasiswa.txt", "a+");
 
+	printf("\n=================================================================================================\n");
 	printf("\t\t\tHarap Login Terlebih Dahulu!\n");
 	printf("=================================================================================================\n");
 
-	loginMahasiswa:
-	key =0;
+	loginMahasiswaUsername:
 	printf("\tNama\t\t: ");
 	scanf("%s", username);
+	loginMahasiswaPassword:
 	printf("\tPassword\t: ");
 	scanf("%s", password);
 
-	while (fscanf(dataMahasiswa, "%s\n%d\n%d\n%s\n", tambah.nama, &tambah.NRP, &tambah.noWhatsApp, tambah.password) != EOF) {
-		if ((strcmp(username, tambah.nama) == 0) && (strcmp(password, tambah.password) == 0)) {
-			printf("\tAnda Berhasil Login!\n");
-			key = 1;
+	if (pass == 0 && user == 1){
+		if (strcmp(password, temp) == 0){
 			menuMahasiswa();
-			break;
+		} else {
+			goto loginMahasiswaPassword;
 		}
 	}
-	if (key != 1) {
-		printf("\tUsername atau Password Anda Salah!\n");
-		goto loginMahasiswa;
+
+	dataMahasiswa = fopen("data mahasiswa.txt", "a+");
+	while (fscanf(dataMahasiswa, "%s\n%d\n%d\n%s\n", tambah.nama, &tambah.NRP, &tambah.noWhatsApp, tambah.password) != EOF) {
+		user = 0;
+		pass = 0;
+		if (strcmp(username, tambah.nama) == 0){
+			user = 1;
+			if (strcmp(password, tambah.password) == 0){
+				pass = 1;
+				menuMahasiswa();
+				break;
+			} else {
+				pass = 0;
+				strcat(temp, tambah.password);
+				break;
+			}
+		} else {
+			if (strcmp(password, tambah.password) == 0){
+				pass = 2;
+				if (user == 1 && pass == 2){
+					menuMahasiswa();
+				}
+				fclose(dataMahasiswa);
+				printf("Username atau Pasword Anda Salah!\n");
+				goto loginMahasiswaUsername;
+				break;
+			} else {
+				pass = 0;
+				break;
+			}
+			
+		}
 	}
-	
-	/*if(user == 0){
-		printf("Username Anda Salah!\n");
-		goto loginMahasiswaUsername;
-	}else if(pass == 0){
+	if (pass == 0 && user == 1){
 		printf("Password Anda Salah!\n");
 		goto loginMahasiswaPassword;
-	}*/
+	} else if (user == 0 && pass == 0){
+		printf("Username dan Pasword Anda Salah!\n");
+		goto loginMahasiswaUsername;
+	}
 
 	fclose(dataMahasiswa);
 }	
@@ -492,41 +557,69 @@ void menuLoginPengelolaPerpustakaan() {
 void loginPengelolaPerpustakaan() {
 	system("CLS");
 	header();
-	int key = 0;
-
+	int user = 0;
+	int pass = 0;
+	char temp[] = "";
 	FILE* dataPengelolaPerpustakaan;
-	dataPengelolaPerpustakaan = fopen("data pengelola perpustakaan.txt", "a+");
 
+	printf("\n=================================================================================================\n");
 	printf("\t\t\tHarap Login Terlebih Dahulu!\n");
 	printf("=================================================================================================\n");
 
-	loginPengelolaPerpustakaan:
-	key = 0;
+	loginPengelolaPerpustakaanUsername:
 	printf("\tNama\t\t: ");
 	scanf("%s", username);
+	loginPengelolaPerpustakaanPassword:
 	printf("\tPassword\t: ");
 	scanf("%s", password);
 
-	while (fscanf(dataPengelolaPerpustakaan, "%s\n%d\n%s\n", tambah.nama, &tambah.noWhatsApp, tambah.password) != EOF) {
-		if ((strcmp(username, tambah.nama) == 0) && (strcmp(password, tambah.password) == 0)) {
-			printf("\tAnda Berhasil Login!\n");
-			key = 1;
+	if (pass == 0 && user == 1){
+		if (strcmp(password, temp) == 0){
 			menuPengelolaPerpustakaan();
-			break;
+		} else {
+			goto loginPengelolaPerpustakaanPassword;
 		}
 	}
-	if (key != 1) {
-		printf("\tUsername atau Password Anda Salah!\n");
-		goto loginPengelolaPerpustakaan;
+
+	dataPengelolaPerpustakaan = fopen("data pengelola perpustakaan.txt", "a+");
+	while (fscanf(dataPengelolaPerpustakaan, "%s\n%d\n%s\n", tambah.nama, &tambah.noWhatsApp, tambah.password) != EOF) {
+		user = 0;
+		pass = 0;
+		if (strcmp(username, tambah.nama) == 0){
+			user = 1;
+			if (strcmp(password, tambah.password) == 0){
+				pass = 1;
+				menuPengelolaPerpustakaan();
+				break;
+			} else {
+				pass = 0;
+				strcat(temp, tambah.password);
+				break;
+			}
+		} else {
+			if (strcmp(password, tambah.password) == 0){
+				pass = 2;
+				if (user == 1 && pass == 2){
+					menuPengelolaPerpustakaan();
+				}
+				fclose(dataPengelolaPerpustakaan);
+				printf("Username atau Pasword Anda Salah!\n");
+				goto loginPengelolaPerpustakaanUsername;
+				break;
+			} else {
+				pass = 0;
+				break;
+			}
+			
+		}
 	}
-	
-	/*if(user == 0){
-		printf("Username Anda Salah!\n");
-		goto loginMahasiswaUsername;
-	}else if(pass == 0){
+	if (pass == 0 && user == 1){
 		printf("Password Anda Salah!\n");
-		goto loginMahasiswaPassword;
-	}*/
+		goto loginPengelolaPerpustakaanPassword;
+	} else if (user == 0 && pass == 0){
+		printf("Username dan Pasword Anda Salah!\n");
+		goto loginPengelolaPerpustakaanUsername;
+	}
 
 	fclose(dataPengelolaPerpustakaan);
 }
