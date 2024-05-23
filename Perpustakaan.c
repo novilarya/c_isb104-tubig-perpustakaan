@@ -17,24 +17,30 @@ dataUser dataMhs[1000];
 
 void header();
 
-void menuDosen();
+void menuLoginDosen();
 void loginDosen();
 void signupDosen();
-
+void menuDosen();
 void meminjamBukuDosen();
 void mengembalikanBukuDosen();
 void menyumbangBukuDosen();
 
-void menuMahasiswa();
+void menuLoginMahasiswa();
 void loginMahasiswa();
 void signupMahasiswa();
+void menuMahasiswa();
 void meminjamBukuMahasiswa();
 void mengembalikanBukuMahasiswa();
 void menyumbangBukuMahasiswa();
 
-void menuPengelolaPerpustakaan();
+void menuLoginPengelolaPerpustakaan();
 void loginPengelolaPerpustakaan();
-void signinPengelolaPerpustakaan();
+void signupPengelolaPerpustakaan();
+void menuPengelolaPerpustakaan();
+void meminjamBukuPengelolaPerpustakaan();
+void mengembalikanBukuPengelolaPerpustakaan();
+void menyumbangBukuPengelolaPerpustakaan();
+void mengecekDataPeminjamanBuku();
 
 void header() {
 	printf("=================================================================================================\n");
@@ -62,13 +68,13 @@ int main() {
 	printf("=================================================================================================\n");
 	switch (menuAwal) {
 	case 1: 
-		menuDosen();
+		menuLoginDosen();
 		break;
 	case 2: 
-		menuMahasiswa();
+		menuLoginMahasiswa();
 		break;
 	case 3: 
-		menuPengelolaPerpustakaan();
+		menuLoginPengelolaPerpustakaan();
 		break;
 	default: 
 		printf("Anda Salah Memilih Menu!\n"); 
@@ -81,8 +87,8 @@ int main() {
 	return 0;
 }
 
-void menuDosen() {
-	int pilihAkun, pilihDosen;
+void menuLoginDosen() {
+	int pilihAkun;
 
 	system("CLS");
 	header();
@@ -110,34 +116,7 @@ void menuDosen() {
 		break;
 	}
 
-	system("CLS");
-	header();
-	printf("\n=================================================================================================\n");
-	printf("%s\tMenu Utama\n", username);
-	printf("=================================================================================================\n");
-
-	printf("\tApa yang hendak dilakukan?\n");
-	printf("\t1. Meminjam Buku\n");
-	printf("\t2. Mengembalikan Buku\n");
-	printf("\t3. Menyumbang Buku\n");
-	printf("Silahkan Pilih Menu: ");
-	scanf("%d", &pilihDosen);
-	switch (pilihDosen) {
-	case 1:
-		meminjamBukuDosen;
-		break;
-	case 2:
-		mengembalikanBukuDosen;
-		break;
-	case 3:
-		menyumbangBukuDosen;
-		break;
-	default:
-		break;
-	}
-
 }
-
 void loginDosen() {
 	system("CLS");
 	header();
@@ -150,16 +129,16 @@ void loginDosen() {
 	printf("\t\t\tHarap Login Terlebih Dahulu!\n");
 	printf("=================================================================================================\n");
 
-loginDosen:
+	loginDosen:
 	printf("\tNama\t\t: ");
 	scanf("%s", username);
 	printf("\tPassword\t: ");
 	scanf("%s", password);
 
-	while (fscanf(dataDosen, "%s\n%d\n%d\n%s\n", tambah.nama, &tambah.NRP, &tambah.noWhatsApp, tambah.password) != EOF) {
+	while (fscanf(dataDosen, "%s\n%d\n%s\n", tambah.nama, &tambah.noWhatsApp, tambah.password) != EOF) {
 		if ((strcmp(username, tambah.nama) == 0) && (strcmp(password, tambah.password) == 0)) {
-			printf("\tAnda Berhasil Login!\n");
 			key = 1;
+			menuDosen();
 			break;
 		}
 	}
@@ -181,23 +160,66 @@ void signupDosen() {
 	printf("=================================================================================================\n");
 	printf("\tNama\t\t: ");
 	scanf("%s", tambah.nama);
-	printf("\tNRP\t\t: ");
-	scanf("%d", &tambah.NRP);
 	printf("\tNomor WhatsApp\t: ");
 	scanf("%d", &tambah.noWhatsApp);
 	printf("\tPassword\t: ");
 	scanf("%s", tambah.password);
 
-	fprintf(dataDosen, "%s\n%d\n%d\n%s\n", tambah.nama, tambah.NRP, tambah.noWhatsApp, tambah.password);
+	fprintf(dataDosen, "%s\n%d\n%s\n", tambah.nama, tambah.noWhatsApp, tambah.password);
 
 	fclose(dataDosen);
 
 	loginDosen();
 }
+void menuDosen(){
+	int pilihMenuDosen;
 
-void menuMahasiswa() {
+	system("CLS");
+	printf("\tAnda Berhasil Login!\n");
+	header();
+
+	do{
+		printf("%s\tMenu Utama\n", username);
+		printf("=================================================================================================\n");
+
+		printf("\tApa yang hendak dilakukan?\n");
+		printf("\t1. Meminjam Buku\n");
+		printf("\t2. Mengembalikan Buku\n");
+		printf("\t3. Menyumbang Buku\n");
+		printf("\t4. Keluar\n");
+		printf("Pilih (1/2/3/4): ");
+		scanf("%d", &pilihMenuDosen);
+		switch (pilihMenuDosen) {
+		case 1:
+			meminjamBukuDosen;
+			break;
+		case 2:
+			mengembalikanBukuDosen;
+			break;
+		case 3:
+			menyumbangBukuDosen;
+			break;
+		case 4:
+			printf("Terima Kasih Telah Menggunakan Sistem Ini!\n");
+			break;
+		default:
+			printf("Anda Salah Memilih Menu!\n");
+			break;
+		}
+	}while(pilihMenuDosen != 4);
+}
+void meminjamBukuDosen(){
+
+}
+void mengembalikanBukuDosen(){
+
+}
+void menyumbangBukuDosen(){
+
+}
+
+void menuLoginMahasiswa() {
 	int pilihAkun;
-	int pilihMenuMahasiswa;
 
 	system("CLS");
 	header();
@@ -223,10 +245,80 @@ void menuMahasiswa() {
 		break;
 	}
 
+}
+void loginMahasiswa() {
 	system("CLS");
 	header();
-	do {
+	int key = 0;
 
+	FILE* dataMahasiswa;
+	dataMahasiswa = fopen("data mahasiswa.txt", "a+");
+
+	printf("\t\t\tHarap Login Terlebih Dahulu!\n");
+	printf("=================================================================================================\n");
+
+	loginMahasiswa:
+	key =0;
+	printf("\tNama\t\t: ");
+	scanf("%s", username);
+	printf("\tPassword\t: ");
+	scanf("%s", password);
+
+	while (fscanf(dataMahasiswa, "%s\n%d\n%d\n%s\n", tambah.nama, &tambah.NRP, &tambah.noWhatsApp, tambah.password) != EOF) {
+		if ((strcmp(username, tambah.nama) == 0) && (strcmp(password, tambah.password) == 0)) {
+			printf("\tAnda Berhasil Login!\n");
+			key = 1;
+			menuMahasiswa();
+			break;
+		}
+	}
+	if (key != 1) {
+		printf("\tUsername atau Password Anda Salah!\n");
+		goto loginMahasiswa;
+	}
+	
+	/*if(user == 0){
+		printf("Username Anda Salah!\n");
+		goto loginMahasiswaUsername;
+	}else if(pass == 0){
+		printf("Password Anda Salah!\n");
+		goto loginMahasiswaPassword;
+	}*/
+
+	fclose(dataMahasiswa);
+}	
+void signupMahasiswa() {
+	system("CLS");
+	header();
+	FILE* dataMahasiswa;
+	dataMahasiswa = fopen("data mahasiswa.txt", "a+");
+
+	printf("\n=================================================================================================\n");
+	printf("\t\t\tSilahkan Isi Terlebih Dahulu!\n");
+	printf("=================================================================================================\n");
+	printf("\tNama\t\t: ");
+	scanf("%s", tambah.nama);
+	printf("\tNRP\t\t: ");
+	scanf("%d", &tambah.NRP);
+	printf("\tNomor WhatsApp\t: ");
+	scanf("%d", &tambah.noWhatsApp);
+	printf("\tPassword\t: ");
+	scanf("%s", tambah.password);
+
+	fprintf(dataMahasiswa, "%s\n%d\n%d\n%s\n", tambah.nama, tambah.NRP, tambah.noWhatsApp, tambah.password);
+
+	fclose(dataMahasiswa);
+
+	loginMahasiswa();
+}
+void menuMahasiswa(){
+	int pilihMenuMahasiswa;
+
+	system("CLS");
+	printf("\tAnda Berhasil Login!\n");
+	header();
+	
+	do {
 		printf("%s\t\t\tMenu Utama\n", username);
 		printf("=================================================================================================\n");
 
@@ -255,127 +347,7 @@ void menuMahasiswa() {
 			break;
 		}
 	} while (pilihMenuMahasiswa != 4);
-
 }
-
-void loginMahasiswa() {
-	system("CLS");
-	header();
-	int key = 0;
-
-	FILE* dataMahasiswa;
-	dataMahasiswa = fopen("data mahasiswa.txt", "a+");
-
-	printf("\t\t\tHarap Login Terlebih Dahulu!\n");
-	printf("=================================================================================================\n");
-
-loginMahasiswa:
-	printf("\tNama\t\t: ");
-	scanf("%s", username);
-	printf("\tPassword\t: ");
-	scanf("%s", password);
-
-	while (fscanf(dataMahasiswa, "%s\n%d\n%d\n%s\n", tambah.nama, &tambah.NRP, &tambah.noWhatsApp, tambah.password) != EOF) {
-		if ((strcmp(username, tambah.nama) == 0) && (strcmp(password, tambah.password) == 0)) {
-			printf("\tAnda Berhasil Login!\n");
-			key = 1;
-			break;
-		}
-	}
-	if (key != 1) {
-		printf("\tUsername atau Password Anda Salah!\n");
-		key = 1;
-		goto loginMahasiswa;
-	}
-	fclose(dataMahasiswa);
-}
-void signupMahasiswa() {
-	system("CLS");
-	header();
-	FILE* dataMahasiswa;
-	dataMahasiswa = fopen("data mahasiswa.txt", "a+");
-
-	printf("\n=================================================================================================\n");
-	printf("\t\t\tSilahkan Isi Terlebih Dahulu!\n");
-	printf("=================================================================================================\n");
-	printf("\tNama\t\t: ");
-	scanf("%s", tambah.nama);
-	printf("\tNRP\t\t: ");
-	scanf("%d", &tambah.NRP);
-	printf("\tNomor WhatsApp\t: ");
-	scanf("%d", &tambah.noWhatsApp);
-	printf("\tPassword\t: ");
-	scanf("%s", tambah.password);
-
-	fprintf(dataMahasiswa, "%s\n%d\n%d\n%s\n", tambah.nama, tambah.NRP, tambah.noWhatsApp, tambah.password);
-
-	fclose(dataMahasiswa);
-
-	loginMahasiswa();
-}
-
-void menuPengelolaPerpustakaan() {
-	int pilihAkun;
-
-	system("CLS");
-	header();
-	printf("\n=================================================================================================\n");
-	printf("\t\t\tHarap Login Terlebih Dahulu!\n");
-	printf("=================================================================================================\n");
-	printf("\n\t1. Sudah Punya Akun");
-	printf("\n\t2. Belum Punya Akun");
-	printf("\n\tPilih (1/2): ");
-
-	kembaliPengelolaPerpustakaan:
-	scanf("%d", &pilihAkun);
-	printf("\n\n=================================================================================================\n");
-	switch (pilihAkun) {
-	case 1:
-		loginPengelolaPerpustakaan();
-		break;
-	case 2:
-		signinPengelolaPerpustakaan();
-		break;
-	default:
-		printf("Anda Salah Memilih Menu!\n");
-		goto kembaliPengelolaPerpustakaan;
-		break;
-	}
-
-	system("CLS");
-	header();
-	printf("\n=================================================================================================\n");
-	printf("XXXXXXX-NAMA-XXXXXXX\tMenu Utama\n");
-	printf("=================================================================================================\n");
-	printf("\tApa yang hendak dilakukan?\n");
-	printf("\t1. Meminjam Buku\n");
-	printf("\t2. Mengembalikan Buku\n");
-	printf("\t3. Menyumbang Buku\n");
-	printf("\t4. Mengecek Data Peminjaman Buku\n");
-}
-
-void loginPengelolaPerpustakaan() {
-	system("CLS");
-	header();
-	printf("\n=================================================================================================\n");
-	printf("\t\t\tHarap Login Terlebih Dahulu!\n");
-	printf("=================================================================================================\n");
-	printf("\tNama\t\t: \n");
-	printf("\tPassword\t: \n");
-}
-void signinPengelolaPerpustakaan() {
-	system("CLS");
-	header();
-	printf("\n=================================================================================================\n");
-	printf("\t\t\tSilahkan Isi Terlebih Dahulu!\n");
-	printf("=================================================================================================\n");
-	printf("\tNama\t\t: \n");
-	printf("\t!!NRP\t\t: \n");
-	printf("\tNomor WhatsApp\t: \n");
-	printf("\tPassword\t: \n");
-	loginPengelolaPerpustakaan();
-}
-
 void meminjamBukuMahasiswa() {
 	int pilihanBuku;
 	char *pilihanJenisBuku;
@@ -488,3 +460,148 @@ void menyumbangBukuMahasiswa() {
 	printf("=================================================================================================\n");
 }
 
+void menuLoginPengelolaPerpustakaan() {
+	int pilihAkun;
+
+	system("CLS");
+	header();
+	printf("\n=================================================================================================\n");
+	printf("\t\t\tHarap Login Terlebih Dahulu!\n");
+	printf("=================================================================================================\n");
+	printf("\n\t1. Sudah Punya Akun");
+	printf("\n\t2. Belum Punya Akun");
+	printf("\n\tPilih (1/2): ");
+
+	kembaliPengelolaPerpustakaan:
+	scanf("%d", &pilihAkun);
+	printf("\n\n=================================================================================================\n");
+	switch (pilihAkun) {
+	case 1:
+		loginPengelolaPerpustakaan();
+		break;
+	case 2:
+		signupPengelolaPerpustakaan();
+		break;
+	default:
+		printf("Anda Salah Memilih Menu!\n");
+		goto kembaliPengelolaPerpustakaan;
+		break;
+	}
+
+}
+void loginPengelolaPerpustakaan() {
+	system("CLS");
+	header();
+	int key = 0;
+
+	FILE* dataPengelolaPerpustakaan;
+	dataPengelolaPerpustakaan = fopen("data pengelola perpustakaan.txt", "a+");
+
+	printf("\t\t\tHarap Login Terlebih Dahulu!\n");
+	printf("=================================================================================================\n");
+
+	loginPengelolaPerpustakaan:
+	key = 0;
+	printf("\tNama\t\t: ");
+	scanf("%s", username);
+	printf("\tPassword\t: ");
+	scanf("%s", password);
+
+	while (fscanf(dataPengelolaPerpustakaan, "%s\n%d\n%s\n", tambah.nama, &tambah.noWhatsApp, tambah.password) != EOF) {
+		if ((strcmp(username, tambah.nama) == 0) && (strcmp(password, tambah.password) == 0)) {
+			printf("\tAnda Berhasil Login!\n");
+			key = 1;
+			menuPengelolaPerpustakaan();
+			break;
+		}
+	}
+	if (key != 1) {
+		printf("\tUsername atau Password Anda Salah!\n");
+		goto loginPengelolaPerpustakaan;
+	}
+	
+	/*if(user == 0){
+		printf("Username Anda Salah!\n");
+		goto loginMahasiswaUsername;
+	}else if(pass == 0){
+		printf("Password Anda Salah!\n");
+		goto loginMahasiswaPassword;
+	}*/
+
+	fclose(dataPengelolaPerpustakaan);
+}
+void signupPengelolaPerpustakaan() {
+	system("CLS");
+	header();
+	FILE* dataPengelolaPerpustakaan;
+	dataPengelolaPerpustakaan = fopen("data pengelola perpustakaan.txt", "a+");
+
+	printf("\n=================================================================================================\n");
+	printf("\t\t\tSilahkan Isi Terlebih Dahulu!\n");
+	printf("=================================================================================================\n");
+	printf("\tNama\t\t: ");
+	scanf("%s", tambah.nama);
+	printf("\tNomor WhatsApp\t: ");
+	scanf("%d", &tambah.noWhatsApp);
+	printf("\tPassword\t: ");
+	scanf("%s", tambah.password);
+
+	fprintf(dataPengelolaPerpustakaan, "%s\n%d\n%s\n", tambah.nama, tambah.noWhatsApp, tambah.password);
+
+	fclose(dataPengelolaPerpustakaan);
+
+	loginPengelolaPerpustakaan();
+}
+void menuPengelolaPerpustakaan(){
+	int pilihMenuPengelolaPerpustakaan;
+
+	system("CLS");
+	printf("\tAnda Berhasil Login!\n");
+	header();
+	
+	do {
+		printf("%s\t\t\tMenu Utama\n", username);
+		printf("=================================================================================================\n");
+
+		printf("\tApa yang hendak dilakukan?\n");
+		printf("\t1. Meminjam Buku\n");
+		printf("\t2. Mengembalikan Buku\n");
+		printf("\t3. Menyumbang Buku\n");
+		printf("\t4. Mengecek Data Peminjaman Buku\n");
+		printf("\t5. Keluar\n");
+		printf("Pilih (1/2/3/4/5): ");
+		scanf("%d", &pilihMenuPengelolaPerpustakaan);
+		switch (pilihMenuPengelolaPerpustakaan) {
+		case 1:
+			meminjamBukuPengelolaPerpustakaan();
+			break;
+		case 2:
+			mengembalikanBukuPengelolaPerpustakaan();
+			break;
+		case 3:
+			menyumbangBukuPengelolaPerpustakaan();
+			break;
+		case 4:
+			mengecekDataPeminjamanBuku();
+			break;
+		case 5:
+			printf("Terima Kasih Telah Menggunakan Sistem Ini!\n");
+			break;
+		default:
+			printf("Anda Salah Memilih Menu!\n");
+			break;
+		}
+	} while (pilihMenuPengelolaPerpustakaan != 5);
+}
+void meminjamBukuPengelolaPerpustakaan(){
+
+}
+void mengembalikanBukuPengelolaPerpustakaan(){
+
+}
+void menyumbangBukuPengelolaPerpustakaan(){
+
+}
+void mengecekDataPeminjamanBuku(){
+
+}
