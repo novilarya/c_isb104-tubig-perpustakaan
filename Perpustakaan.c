@@ -610,7 +610,6 @@ void loginPengelolaPerpustakaan() {
 				pass = 0;
 				break;
 			}
-			
 		}
 	}
 	if (pass == 0 && user == 1){
