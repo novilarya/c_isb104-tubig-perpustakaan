@@ -157,7 +157,8 @@ void loginDosen() {
 			} else {
 				pass = 0;
 				strcat(temp, tambah.password);
-				break;
+				printf("Password Anda Salah!\n");
+				goto loginDosenPassword;
 			}
 		} else {
 			if (strcmp(password, tambah.password) == 0){
@@ -171,7 +172,6 @@ void loginDosen() {
 				break;
 			} else {
 				pass = 0;
-				break;
 			}
 			
 		}
@@ -323,7 +323,8 @@ void loginMahasiswa() {
 			} else {
 				pass = 0;
 				strcat(temp, tambah.password);
-				break;
+				printf("Password Anda Salah!\n");
+				goto loginMahasiswaPassword;
 			}
 		} else {
 			if (strcmp(password, tambah.password) == 0){
@@ -337,7 +338,6 @@ void loginMahasiswa() {
 				break;
 			} else {
 				pass = 0;
-				break;
 			}
 			
 		}
@@ -594,7 +594,8 @@ void loginPengelolaPerpustakaan() {
 			} else {
 				pass = 0;
 				strcat(temp, tambah.password);
-				break;
+				printf("Password Anda Salah!\n");
+				goto loginPengelolaPerpustakaanPassword;
 			}
 		} else {
 			if (strcmp(password, tambah.password) == 0){
@@ -608,7 +609,6 @@ void loginPengelolaPerpustakaan() {
 				break;
 			} else {
 				pass = 0;
-				break;
 			}
 		}
 	}
