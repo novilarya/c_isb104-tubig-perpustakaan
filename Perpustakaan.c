@@ -505,7 +505,7 @@ void mengembalikanBukuMahasiswa() {
 void menyumbangBukuMahasiswa() {
 	system("CLS");
 	header();
-	printf("%s\t\t\Menyumbang Buku\n", username);
+	printf("%s\t\tMenyumbang Buku\n", username);
 	printf("=================================================================================================\n");
 	printf("\tPilih Jenis Buku yang Hendak dipinjam\n");
 	printf("\t1. TA\n");
@@ -694,6 +694,34 @@ void mengembalikanBukuPengelolaPerpustakaan(){
 void menyumbangBukuPengelolaPerpustakaan(){
 
 }
-void mengecekDataPeminjamanBuku(){
+void mengecekDataPeminjamanBuku() {
+    system("CLS");
+    header();
+    
+    FILE *dataPeminjaman;
+    dataPeminjaman = fopen("data peminjaman.txt", "r");
+    
+    if (dataPeminjaman == NULL) {
+        printf("Tidak ada data peminjaman.\n");
+        return;
+    }
 
+    printf("\n=================================================================================================\n");
+    printf("\t\t\tData Peminjaman Buku\n");
+    printf("=================================================================================================\n");
+    printf("Nama\t\t|\tKode Buku\t|\tTanggal Pinjam\t|\tTanggal Pengembalian\n");
+    printf("=================================================================================================\n");
+
+    char nama[50];
+    char kodeBuku[20];
+    char tanggalPinjam[10];
+    char tanggalPengembalian[10];
+
+    while (fscanf(dataPeminjaman, "%s %s %s %s", nama, kodeBuku, tanggalPinjam, tanggalPengembalian) != EOF) {
+        printf("%s\t|\t%s\t|\t%s\t|\t%s\n", nama, kodeBuku, tanggalPinjam, tanggalPengembalian);
+    }
+
+    fclose(dataPeminjaman);
 }
+
+
