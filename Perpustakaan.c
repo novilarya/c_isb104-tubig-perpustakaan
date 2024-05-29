@@ -9,11 +9,29 @@ typedef struct {
 	char password[50];
 }dataUser;
 
+typedef struct 
+{
+	char kodeBuku[50];
+	char judulBuku[100];
+	char pengarangBuku[50];
+	char statusBuku[10];
+}dataBuku;
+
+
 char username[50];
 char password[50];
+char kodeBuku[50];
+char judulBuku[50];
+char penyusunBuku[50];
+char tanggalPinjam[50];
+char tanggalPengembalian[50];
+char jenisBukuYangDipinjam[50];
+
 
 dataUser tambah;
 dataUser dataMhs[1000];
+
+dataBuku tambahBuku;
 
 void header();
 
@@ -130,8 +148,9 @@ void loginDosen() {
 	printf("=================================================================================================\n");
 
 	loginDosenUsername:
+	getchar();
 	printf("\tNama\t\t: ");
-	scanf("%s", username);
+	scanf("%[^\n]", username);
 	loginDosenPassword:
 	printf("\tPassword\t: ");
 	scanf("%s", password);
@@ -145,7 +164,7 @@ void loginDosen() {
 	}
 
 	dataDosen = fopen("data dosen.txt", "a+");
-	while (fscanf(dataDosen, "%s\n%d\n%s\n", tambah.nama, &tambah.noWhatsApp, tambah.password) != EOF) {
+	while (fscanf(dataDosen, "%[^\n]\n%d\n%s\n", tambah.nama, &tambah.noWhatsApp, tambah.password) != EOF) {
 		user = 0;
 		pass = 0;
 		if (strcmp(username, tambah.nama) == 0){
@@ -167,7 +186,7 @@ void loginDosen() {
 					menuDosen();
 				}
 				fclose(dataDosen);
-				printf("Username atau Pasword Anda Salah!\n");
+				printf("Nama atau Pasword Anda Salah!\n");
 				goto loginDosenUsername;
 				break;
 			} else {
@@ -180,7 +199,7 @@ void loginDosen() {
 		printf("Password Anda Salah!\n");
 		goto loginDosenPassword;
 	} else if (user == 0 && pass == 0){
-		printf("Username dan Pasword Anda Salah!\n");
+		printf("Nama dan Pasword Anda Salah!\n");
 		goto loginDosenUsername;
 	}
 
@@ -195,8 +214,10 @@ void signupDosen() {
 	printf("\n=================================================================================================\n");
 	printf("\t\t\tSilahkan Isi Terlebih Dahulu!\n");
 	printf("=================================================================================================\n");
+	
+	getchar();
 	printf("\tNama\t\t: ");
-	scanf("%s", tambah.nama);
+	scanf("%[^\n]", tambah.nama);
 	printf("\tNomor WhatsApp\t: ");
 	scanf("%d", &tambah.noWhatsApp);
 	printf("\tPassword\t: ");
@@ -214,9 +235,9 @@ void menuDosen(){
 	system("CLS");
 	printf("\tAnda Berhasil Login!\n");
 	header();
-
-	do{
-		printf("%s\tMenu Utama\n", username);
+	
+	do {
+		printf("%s\t\t\tMenu Utama\n", username);
 		printf("=================================================================================================\n");
 
 		printf("\tApa yang hendak dilakukan?\n");
@@ -228,13 +249,13 @@ void menuDosen(){
 		scanf("%d", &pilihMenuDosen);
 		switch (pilihMenuDosen) {
 		case 1:
-			meminjamBukuDosen;
+			meminjamBukuDosen();
 			break;
 		case 2:
-			mengembalikanBukuDosen;
+			mengembalikanBukuDosen();
 			break;
 		case 3:
-			menyumbangBukuDosen;
+			menyumbangBukuDosen();
 			break;
 		case 4:
 			printf("Terima Kasih Telah Menggunakan Sistem Ini!\n");
@@ -243,15 +264,16 @@ void menuDosen(){
 			printf("Anda Salah Memilih Menu!\n");
 			break;
 		}
-	}while(pilihMenuDosen != 4);
+	} while (pilihMenuDosen != 4);
 }
-void meminjamBukuDosen(){
+void meminjamBukuDosen() {
 
 }
-void mengembalikanBukuDosen(){
+
+void mengembalikanBukuDosen() {
 
 }
-void menyumbangBukuDosen(){
+void menyumbangBukuDosen() {
 
 }
 
@@ -296,8 +318,9 @@ void loginMahasiswa() {
 	printf("=================================================================================================\n");
 
 	loginMahasiswaUsername:
+	getchar();
 	printf("\tNama\t\t: ");
-	scanf("%s", username);
+	scanf("%[^\n]", username);
 	loginMahasiswaPassword:
 	printf("\tPassword\t: ");
 	scanf("%s", password);
@@ -311,7 +334,7 @@ void loginMahasiswa() {
 	}
 
 	dataMahasiswa = fopen("data mahasiswa.txt", "a+");
-	while (fscanf(dataMahasiswa, "%s\n%d\n%d\n%s\n", tambah.nama, &tambah.NRP, &tambah.noWhatsApp, tambah.password) != EOF) {
+	while (fscanf(dataMahasiswa, "%[^\n]\n%d\n%d\n%s\n", tambah.nama, &tambah.NRP, &tambah.noWhatsApp, tambah.password) != EOF) {
 		user = 0;
 		pass = 0;
 		if (strcmp(username, tambah.nama) == 0){
@@ -333,7 +356,7 @@ void loginMahasiswa() {
 					menuMahasiswa();
 				}
 				fclose(dataMahasiswa);
-				printf("Username atau Pasword Anda Salah!\n");
+				printf("Nama atau Pasword Anda Salah!\n");
 				goto loginMahasiswaUsername;
 				break;
 			} else {
@@ -346,7 +369,7 @@ void loginMahasiswa() {
 		printf("Password Anda Salah!\n");
 		goto loginMahasiswaPassword;
 	} else if (user == 0 && pass == 0){
-		printf("Username dan Pasword Anda Salah!\n");
+		printf("Nama dan Pasword Anda Salah!\n");
 		goto loginMahasiswaUsername;
 	}
 
@@ -361,8 +384,9 @@ void signupMahasiswa() {
 	printf("\n=================================================================================================\n");
 	printf("\t\t\tSilahkan Isi Terlebih Dahulu!\n");
 	printf("=================================================================================================\n");
+	getchar();
 	printf("\tNama\t\t: ");
-	scanf("%s", tambah.nama);
+	scanf("%[^\n]", tambah.nama);
 	printf("\tNRP\t\t: ");
 	scanf("%d", &tambah.NRP);
 	printf("\tNomor WhatsApp\t: ");
@@ -415,79 +439,46 @@ void menuMahasiswa(){
 }
 void meminjamBukuMahasiswa() {
 	int pilihanBuku;
-	char *pilihanJenisBuku;
+	char pilihanJenisBuku [] = "";
 	system("CLS");
 	header();
 	printf("%s\t\t\tMeminjam Buku\n", username);
 	printf("=================================================================================================\n");
-	printf("\tPilih Jenis Buku yang Hendak dipinjam\n");
-	printf("\t1. Tugas Akhir\n");
-	printf("\t2. KP\n");
-	printf("\t3. SIP\n");
-	printf("\t4. MBKM\n");
-	printf("\t5. PAP\n");
-	printf("\t6. PEM\n");
-	printf("\t7. DB\n");
-	printf("\t8. Kembali\n");
-	printf("\tSilahkan Tulis Sesuai Menu (TA): ");
-	scanf("%d", &pilihanBuku);
-	switch (pilihanBuku) {
-	case 1: 
-	{
-		char pilihanJenisBuku[] = "Tugas Akhir";
-	}
-		break;
-	case 2: {
-		char pilihanJenisBuku[] = "KP";
-	}
-		break;
-	case 3: {
-		char pilihanJenisBuku[] = "SIP";
-	}
-		break;
-	case 4: {
-		char pilihanJenisBuku[] = "MBKM";
-	}
-		break;
-	case 5: {
-		char pilihanJenisBuku[] = "PAP";
-	}
-		break;
-	case 6: {
-		char pilihanJenisBuku[] = "PEM";
-	}
-		break;
-	case 7: {
-		char pilihanJenisBuku[] = "DB";
-	}
-		break;
-	case 8: {
 
+	FILE* dataBuku;
+	dataBuku = fopen("data buku.txt", "r");
+
+	printf("=================================================================================================\n");
+	printf("Kode Buku\t|\tJudul Buku\t\t|\tPengarang\t\t|\tStatus\n");
+	printf("=================================================================================================\n");
+	while(fscanf(dataBuku, "%s\n%[^\n]\n%[^\n]\n%s", tambahBuku.kodeBuku, tambahBuku.judulBuku, tambahBuku.pengarangBuku, tambahBuku.statusBuku) != EOF){
+		printf("%s\t|%s\t|%s|\t%s\n", tambahBuku.kodeBuku, tambahBuku.judulBuku, tambahBuku.pengarangBuku, tambahBuku.statusBuku);
 	}
-		break;
-	default:
-		printf("Anda Salah Memilih Menu!\n");
-		break;
-	}while (pilihanBuku != 8);
+	printf("=================================================================================================\n");
+	printf("\tSilahkan Ketik Sesuai Kode Buku: \n");
+	scanf("%s", kodeBuku);
+	while(fscanf(dataBuku, "%s\n%[^\n]\n%[^\n]\n%s", tambahBuku.kodeBuku, tambahBuku.judulBuku, tambahBuku.pengarangBuku, tambahBuku.statusBuku) != EOF){
+		if (strcmp(kodeBuku, tambahBuku.kodeBuku) == 0){
+			printf("Judul buku yang dipinjam : %s\n", tambahBuku.judulBuku);
+			strcpy(jenisBukuYangDipinjam, tambahBuku.judulBuku);
+			break; 
+		}
+	}
+	printf("=================================================================================================\n");
+	printf("\tTanggal Pinjam (DD-MM-YYYY)\t: \n");
+	scanf("%s", tanggalPinjam);
+	printf("\tTanggal Pengembalian (DD-MM-YYYY)\t: \n");
+	scanf("%s", tanggalPengembalian);
 
 
-	printf("\n=================================================================================================\n");
-	printf("\tJenis Buku\t: ");
-	printf("%s\n", pilihanJenisBuku);
-	printf("=================================================================================================\n");
-	printf("Kode Buku\t|\tNama Buku\t\t|\tPenyusun\t\t|\tStatus\n");
-	printf("=================================================================================================\n");
-	printf("XXXX-XXXXXXXXX\t|\tXXXXX-NAMA BUKU-XXXXX\t|\tXXXXX-NAMA-XXXXX\t|\tTersedia\n");
-	printf("XXXX-XXXXXXXXX\t|\tXXXXX-NAMA BUKU-XXXXX\t|\tXXXXX-NAMA-XXXXX\t|\tTersedia\n");
-	printf("XXXX-XXXXXXXXX\t|\tXXXXX-NAMA BUKU-XXXXX\t|\tXXXXX-NAMA-XXXXX\t|\tTersedia\n");
-	printf("XXXX-XXXXXXXXX\t|\tXXXXX-NAMA BUKU-XXXXX\t|\tXXXXX-NAMA-XXXXX\t|\tTersedia\n");
-	printf("XXXX-XXXXXXXXX\t|\tXXXXX-NAMA BUKU-XXXXX\t|\tXXXXX-NAMA-XXXXX\t|\tTersedia\n");
-	printf("XXXX-XXXXXXXXX\t|\tXXXXX-NAMA BUKU-XXXXX\t|\tXXXXX-NAMA-XXXXX\t|\tTersedia\n");
-	printf("=================================================================================================\n");
-	printf("\tSilahkan Ketik Sesuai Kode Buku (Tanpa -): \n");
-	printf("=================================================================================================\n");
-	printf("\tTanggal Pinjam (DDMMYYYY)\t: \n");
-	printf("\tTanggal Pengembalian (DDMMYYYY)\t: \n");
+	FILE* dataPeminjaman;
+	dataPeminjaman = fopen("data peminjaman buku.txt", "a+");
+
+	fprintf(dataPeminjaman, "%s\n%s\n%s\n%s\n%s\n", username, kodeBuku, jenisBukuYangDipinjam, tanggalPinjam, tanggalPengembalian);
+
+	fclose(dataPeminjaman);
+	fclose(dataBuku);
+
 	printf("=================================================================================================\n");
 	printf("\tSilahkan Datang Ke Perpustakaan Secara Langsung Untuk Meminjam Buku!\t\n");
 	printf("=================================================================================================\n");
@@ -502,7 +493,11 @@ void mengembalikanBukuMahasiswa() {
 	printf("\tSilahkan Datang Ke Perpustakaan Secara Langsung Untuk Mengembalikan Buku!\t\n");
 	printf("=================================================================================================\n");
 }
+
 void menyumbangBukuMahasiswa() {
+	int pilihanBuku;
+	char pilihanJenisBuku [] = "";
+
 	system("CLS");
 	header();
 	printf("%s\t\tMenyumbang Buku\n", username);
@@ -516,10 +511,63 @@ void menyumbangBukuMahasiswa() {
 	printf("\t6. PEM\n");
 	printf("\t7. DB\n");
 	printf("\t8. Kembali\n");
-	printf("Jenis Buku(TA)\t: \n");
-	printf("Kode Buku\t: \n");
+	printf("\tSilahkan Pilih Sesuai Menu (1-8): ");
+	scanf("%d", &pilihanBuku);
+	switch (pilihanBuku) {
+	case 1: 
+	{
+		char JenisBuku[] = "Tugas Akhir";
+		strcpy(pilihanJenisBuku, JenisBuku);
+		break;
+	}
+	case 2: {
+		char JenisBuku[] = "KP";
+		strcpy(pilihanJenisBuku, JenisBuku);
+		break;
+	}
+	case 3: {
+		char JenisBuku[] = "SIP";
+		strcpy(pilihanJenisBuku, JenisBuku);
+		break;
+	}
+	case 4: {
+		char JenisBuku[] = "MBKM";
+		strcpy(pilihanJenisBuku, JenisBuku);
+		break;
+	}
+	case 5: {
+		char JenisBuku[] = "PAP";
+		strcpy(pilihanJenisBuku, JenisBuku);
+		break;
+	}	
+	case 6: {
+		char JenisBuku[] = "PEM";
+		strcpy(pilihanJenisBuku, JenisBuku);
+		break;
+	}
+	case 7: {
+		char JenisBuku[] = "DB";
+		strcpy(pilihanJenisBuku, JenisBuku); 
+		break;
+	}
+	case 8: {
+		printf("Terima Kasih Telah Menggunakan Sistem Ini!");
+		break;
+	}
+	default:
+		printf("Anda Salah Memilih Menu!\n");
+		break;
+	}while (pilihanBuku != 8);
 	printf("Judul Buku\t: \n");
+	scanf("%[^\n]", judulBuku);
 	printf("Penyusun Buku\t: \n");
+	scanf("%[^\n]", penyusunBuku);
+
+	FILE*dataMenyumbang;
+	dataMenyumbang = fopen("data sumbangan buku.txt", "a+");
+	fprintf(dataMenyumbang, "%s\n%[^\n]\n%[^\n]", pilihanJenisBuku, judulBuku, penyusunBuku);
+
+	fclose(dataMenyumbang);
 	printf("=================================================================================================\n");
 	printf("\tSilahkan Datang Ke Perpustakaan Secara Langsung Untuk Menyumbang Buku!\t\n");
 	printf("=================================================================================================\n");
@@ -567,8 +615,10 @@ void loginPengelolaPerpustakaan() {
 	printf("=================================================================================================\n");
 
 	loginPengelolaPerpustakaanUsername:
+
+	getchar();
 	printf("\tNama\t\t: ");
-	scanf("%s", username);
+	scanf("%[^\n]", username);
 	loginPengelolaPerpustakaanPassword:
 	printf("\tPassword\t: ");
 	scanf("%s", password);
@@ -582,7 +632,7 @@ void loginPengelolaPerpustakaan() {
 	}
 
 	dataPengelolaPerpustakaan = fopen("data pengelola perpustakaan.txt", "a+");
-	while (fscanf(dataPengelolaPerpustakaan, "%s\n%d\n%s\n", tambah.nama, &tambah.noWhatsApp, tambah.password) != EOF) {
+	while (fscanf(dataPengelolaPerpustakaan, "%[^\n]\n%d\n%s\n", tambah.nama, &tambah.noWhatsApp, tambah.password) != EOF) {
 		user = 0;
 		pass = 0;
 		if (strcmp(username, tambah.nama) == 0){
@@ -604,7 +654,7 @@ void loginPengelolaPerpustakaan() {
 					menuPengelolaPerpustakaan();
 				}
 				fclose(dataPengelolaPerpustakaan);
-				printf("Username atau Pasword Anda Salah!\n");
+				printf("Nama atau Pasword Anda Salah!\n");
 				goto loginPengelolaPerpustakaanUsername;
 				break;
 			} else {
@@ -616,7 +666,7 @@ void loginPengelolaPerpustakaan() {
 		printf("Password Anda Salah!\n");
 		goto loginPengelolaPerpustakaanPassword;
 	} else if (user == 0 && pass == 0){
-		printf("Username dan Pasword Anda Salah!\n");
+		printf("Nama dan Pasword Anda Salah!\n");
 		goto loginPengelolaPerpustakaanUsername;
 	}
 
@@ -631,8 +681,9 @@ void signupPengelolaPerpustakaan() {
 	printf("\n=================================================================================================\n");
 	printf("\t\t\tSilahkan Isi Terlebih Dahulu!\n");
 	printf("=================================================================================================\n");
+	getchar();
 	printf("\tNama\t\t: ");
-	scanf("%s", tambah.nama);
+	scanf("%[^\n]", tambah.nama);
 	printf("\tNomor WhatsApp\t: ");
 	scanf("%d", &tambah.noWhatsApp);
 	printf("\tPassword\t: ");
@@ -698,8 +749,8 @@ void mengecekDataPeminjamanBuku() {
     system("CLS");
     header();
     
-    FILE *dataPeminjaman;
-    dataPeminjaman = fopen("data peminjaman.txt", "r");
+	FILE* dataPeminjaman;
+	dataPeminjaman = fopen("data peminjaman buku.txt", "a+");
     
     if (dataPeminjaman == NULL) {
         printf("Tidak ada data peminjaman.\n");
@@ -717,8 +768,8 @@ void mengecekDataPeminjamanBuku() {
     char tanggalPinjam[10];
     char tanggalPengembalian[10];
 
-    while (fscanf(dataPeminjaman, "%s %s %s %s", nama, kodeBuku, tanggalPinjam, tanggalPengembalian) != EOF) {
-        printf("%s\t|\t%s\t|\t%s\t|\t%s\n", nama, kodeBuku, tanggalPinjam, tanggalPengembalian);
+    while (fscanf(dataPeminjaman, "%s\n%s\n%s\n%s\n%s\n", username, kodeBuku, jenisBukuYangDipinjam, tanggalPinjam, tanggalPengembalian) != EOF) {
+        printf("%s|%s|%s|%s|%s\n", username, kodeBuku, jenisBukuYangDipinjam, tanggalPinjam, tanggalPengembalian);
     }
 
     fclose(dataPeminjaman);
